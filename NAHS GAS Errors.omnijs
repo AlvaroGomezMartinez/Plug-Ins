@@ -1,0 +1,51 @@
+/*{
+    "author": "Alvaro Gomez",
+    "targets": ["omnifocus"],
+    "type": "action",
+    "identifier": "alvaro.NAHS GAS Errors",
+    "version": "0.1",
+    "description": "A plug-in that...",
+    "label": "NAHS GAS Errors",
+    "mediumLabel": "NAHS GAS Errors",
+    "longLabel": "NAHS GAS Errors",
+    "paletteLabel": "NAHS GAS Errors",
+}*/
+(() => {
+  const action = new PlugIn.Action(function (selection, sender) {
+    const targetTitle =
+      "Summary of failures for Google Apps Script: NAHS SW Transition Project: Google Form 24-25";
+    const desiredProjectName = "NAHS SW Transition Project 2024-2025";
+    const desiredTagName = "NAHS";
+
+    const targetProject = flattenedProjects.find(
+      (p) => p.name === desiredProjectName,
+    );
+    if (!targetProject) {
+      new Alert(
+        "Project Not Found",
+        `Couldn't find project named "${desiredProjectName}"`,
+      ).show();
+      return;
+    }
+
+    let targetTag = flattenedTags.find((t) => t.name === desiredTagName);
+    if (!targetTag) {
+      targetTag = new Tag(desiredTagName);
+    }
+
+    const matchingTasks = inbox.filter((task) => task.name === targetTitle);
+
+    matchingTasks.forEach((task) => {
+      moveTasks([task], targetProject.ending);
+      task.addTag(targetTag);
+    });
+
+    new Alert("Done", `${matchingTasks.length} task(s) processed.`).show();
+  });
+
+  action.validate = function (selection, sender) {
+    return true;
+  };
+
+  return action;
+})();
