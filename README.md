@@ -1,2 +1,4 @@
 # OmniFocus Custom Plugins
-This repository contains plugins that I created to automate task organization on my OmniFocus app.
+This repository contains plugins that I created to automate task organization on my OmniFocus app.<br>
+## Workflow
+A Google filter is set in my Gmail account that forwards emails containing Google Apps Script project specific error messages in the subject line to my OmniFocus account. The emails are automatically labeled and archived under each project's folder. This keep my Gmail inbox clean. When I open my OmniFocus Inbox and see the forwarded tasks, I will run the custom plugins to move the tasks to its project and tag it. The plugins are located in the OmniFocus toolbar. I will schedule time to action the tasks when I'm doing my weekly planning.
